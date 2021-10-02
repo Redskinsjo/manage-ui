@@ -28,7 +28,7 @@ export default function NewDish() {
   const api =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3010"
-      : process.env.REACT_APP_PROD_REST_API;
+      : process.env.PROD_REST_API;
 
   const promises = [
     axios.get(api + "/orders/read"),

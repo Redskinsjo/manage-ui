@@ -65,7 +65,7 @@ export default function NewTable({ refetch }) {
       const response = await axios.get(
         process.env.NODE_ENV === "development"
           ? "http://localhost:3010/tables/read"
-          : process.env.REACT_APP_PROD_REST_API + "/tables/read"
+          : process.env.PROD_REST_API + "/tables/read"
       );
       if (response.status === 200) {
         const { data } = response;
