@@ -2,7 +2,7 @@ import React from "react";
 import AppWrapper from "../redux/Wrapper";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 const devUri = "http://localhost:4000/graphql";
-const prodUri = process.env.PROD_GRAPHQL_API;
+const prodUri = `${process.env.PROD_GRAPHQL_API}/graphql`;
 const client = new ApolloClient({
   uri: process.env.NODE_ENV === "development" ? devUri : prodUri,
   cache: new InMemoryCache(),
