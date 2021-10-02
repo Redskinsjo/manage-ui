@@ -1,13 +1,15 @@
-import React, { useRef, useContext } from "react";
+import React, { useContext } from "react";
 import Tables from "../components/primary/Tables";
 import AddElement from "../components/sharedComponents/AddElement";
 import NewTable from "../components/primary/NewTable";
-import { GlobalState } from "../App";
+import { GlobalState } from "../redux/GlobalProvider";
 import Language from "../components/sharedComponents/Language";
 
-function Level1({ getTables, refetch }) {
+function Level1() {
   // const level1Ref = useRef();
-  const { addTable } = useContext(GlobalState);
+  const { ui, data } = useContext(GlobalState);
+  const { addTable } = ui;
+  const { refetch } = data;
 
   return (
     <div className="flex flex-col h-screen">

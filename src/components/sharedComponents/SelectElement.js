@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GlobalState, GlobalDispatch } from "../../App";
+import { GlobalState, GlobalDispatch } from "../../redux/GlobalProvider";
 
 export default function SelectElement({
   id,
@@ -13,7 +13,8 @@ export default function SelectElement({
 }) {
   const [state, setState] = useState({ open: false });
   const [value, setValue] = useState(initValue);
-  const { selectElem } = useContext(GlobalState);
+  const { ui } = useContext(GlobalState);
+  const { selectElem } = ui;
   const { displaySelectElem } = useContext(GlobalDispatch);
 
   const testStructure = (arg) => {

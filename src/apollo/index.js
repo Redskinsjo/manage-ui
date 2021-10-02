@@ -1,20 +1,28 @@
 import React from "react";
-import AppWrapper from "../redux/Wrapper";
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-const devUri = "http://localhost:4000/graphql";
-const prodUri = `${
-  process.env.PROD_GRAPHQL_API || "https://manage-graphql-api.herokuapp.com"
-}/graphql`;
-const client = new ApolloClient({
-  uri: process.env.NODE_ENV === "development" ? devUri : prodUri,
-  cache: new InMemoryCache(),
-  headers: { "Content-Type": "application/json" },
+import { devUri, prodUri, suffix } from "./uris";
+import {
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  HttpLink,
+} from "@apollo/client";
+
+devUri = devUri + suffix;
+prodUri = prodUri + suffix;
+
+const uri = process.env.NODE_ENV === "development" ? devUri : prodUri;
+
+const httpLink = new HttpLink({
+  uri,
 });
 
-export default function Apollo() {
-  return (
-    <ApolloProvider client={client}>
-      <AppWrapper />
-    </ApolloProvider>
-  );
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+  headers: { "Content-Type": "application/json" },
+  credentials: "omit",
+});
+
+export default function GraphQLProvider({ children }) {
+  return <ApolloProvider client={client}>{children}</ApolloProvider>;
 }

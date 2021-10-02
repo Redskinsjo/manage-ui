@@ -3,24 +3,24 @@ import data from "../../data.json";
 import Dish from "../secondary/Dish";
 import AddElement from "../sharedComponents/AddElement";
 import { useTranslation } from "react-i18next";
-import { GlobalTables } from "../../App";
+import { GlobalState } from "../../redux/GlobalProvider";
 
 export default function TableDetails({ numero }) {
   const [tableData, setTableData] = useState();
   const { t } = useTranslation();
-  const tables = useContext(data);
+  const {
+    data: { tables },
+  } = useContext(GlobalState);
 
   const getTableData = async () => {
-    // const table = data.find((table) => table.numero === numero);
+    const table = data.find((table) => table.numero === numero);
     // const table = await
-    const table = tables.find((table) => table.numero === numero);
+    // const table = tables.find((table) => table.numero === numero);
     setTableData(table);
   };
   useEffect(() => {
     getTableData();
   }, [numero]);
-
-  console.log(tableData);
 
   return (
     <div className="flex flex-col px-4 py-2 h-full">

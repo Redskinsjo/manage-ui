@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { GlobalState, GlobalTables } from "../../App";
+import { GlobalState } from "../../redux/GlobalProvider";
 import axios from "axios";
 import { CREATE_TABLE } from "../../apollo/queries";
 import { useMutation } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 import SelectElement from "../sharedComponents/SelectElement";
 
-export default function NewTable({ refetch }) {
+export default function NewTable() {
   const [tableNumber, setTableNumber] = useState("");
   const [location, setLocation] = useState("");
   const [guest1, setGuest1] = useState("");
@@ -16,10 +16,10 @@ export default function NewTable({ refetch }) {
   const [guest5, setGuest5] = useState("");
   const [guest6, setGuest6] = useState("");
   const guests = [guest1, guest2, guest3, guest4, guest5, guest6];
-  console.log(guests);
 
-  const { tableDetails } = useContext(GlobalState);
-  const tables = useContext(GlobalTables);
+  const {
+    data: { tables },
+  } = useContext(GlobalState);
   const [tablesAvailable, setTablesAvailable] = useState();
   const [loading, setLoading] = useState(true);
   let selectedTable;
@@ -37,7 +37,6 @@ export default function NewTable({ refetch }) {
       return guest;
     }
   });
-  console.log(guestsOnTable);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (tableNumber === "Choisir") {
@@ -61,11 +60,12 @@ export default function NewTable({ refetch }) {
   };
 
   const fetchTablesAvailable = async () => {
+    const prodUri = "https://manage-rest-api.herokuapp.com";
     try {
       const response = await axios.get(
         process.env.NODE_ENV === "development"
           ? "http://localhost:3010/tables/read"
-          : process.env.PROD_REST_API + "/tables/read"
+          : prodUri + "/tables/read"
       );
       if (response.status === 200) {
         const { data } = response;

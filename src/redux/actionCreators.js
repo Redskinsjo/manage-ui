@@ -2,7 +2,7 @@ export const DISPLAY_TABLE_DETAILS = "DISPLAY_TABLE_DETAILS";
 export const DISPLAY_ADD_TABLE = "DISPLAY_ADD_TABLE";
 export const DISPLAY_ADD_DISH = "DISPLAY_ADD_DISH";
 export const DISPLAY_TABLE_MENU = "DISPLAY_TABLE_MENU";
-export const GET_TABLES = "GET_TABLES";
+export const SET_TABLES = "SET_TABLES";
 export const DISPLAY_SELECT_ELEM = "DISPLAY_SELECT_ELEM";
 
 export const displayTableDetails = (numero) => {
@@ -33,9 +33,9 @@ export const displaySelectElem = (id) => {
     id,
   };
 };
-export const getTables = (tables) => {
+export const setTables = (tables) => {
   return {
-    type: GET_TABLES,
+    type: SET_TABLES,
     tables,
   };
 };

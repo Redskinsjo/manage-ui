@@ -25,10 +25,9 @@ export default function NewDish() {
 
   const { t } = useTranslation();
 
+  const prodUri = "https://manage-rest-api.herokuapp.com";
   const api =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3010"
-      : process.env.PROD_REST_API;
+    process.env.NODE_ENV === "development" ? "http://localhost:3010" : prodUri;
 
   const promises = [
     axios.get(api + "/orders/read"),

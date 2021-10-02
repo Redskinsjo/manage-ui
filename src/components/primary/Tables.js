@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import TableUnit from "../secondary/TableUnit";
-import { GlobalTables } from "../../App";
+import { GlobalState } from "../../redux/GlobalProvider";
 
 export default function Tables({ refetch }) {
-  const tables = useContext(GlobalTables);
+  const {
+    data: { tables },
+  } = useContext(GlobalState);
   return (
     <div className="flex flex-col items-center overflow-y-scroll overflow-hidden bg-gray-100 flex-grow">
       {tables &&

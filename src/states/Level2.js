@@ -2,12 +2,14 @@ import React, { useRef, useContext } from "react";
 import Tables from "../components/primary/Tables";
 import AddElement from "../components/sharedComponents/AddElement";
 import TableDetails from "../components/primary/TableDetails";
-import { GlobalState, GlobalDispatch } from "../App";
+import { GlobalState, GlobalDispatch } from "../redux/GlobalProvider";
 import Language from "../components/sharedComponents/Language";
 
-export default function Level2({ refetch }) {
+export default function Level2() {
   const tableElemref = useRef();
-  const { tableDetails } = useContext(GlobalState);
+  const { ui, data } = useContext(GlobalState);
+  const { tableDetails } = ui;
+  const { refetch } = data;
   const { displayTableDetails: dispatch } = useContext(GlobalDispatch);
 
   return (
@@ -49,7 +51,7 @@ export default function Level2({ refetch }) {
           </div>
         </div>
         <div className="w-1/2 m-4 border-2 border-black">
-          <TableDetails numero={tableDetails.numero} />
+          <TableDetails numero={tableDetails} />
         </div>
       </div>
     </div>

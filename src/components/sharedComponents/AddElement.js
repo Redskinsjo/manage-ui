@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { GlobalState, GlobalDispatch } from "../../App";
+import { GlobalState, GlobalDispatch } from "../../redux/GlobalProvider";
 
 export default function AddElement({ unit }) {
-  const { addDish, addTable } = useContext(GlobalState);
+  const { ui } = useContext(GlobalState);
+  const { addDish, addTable } = ui;
   const { displayAddTable, displayAddDish } = useContext(GlobalDispatch);
   return (
     <div

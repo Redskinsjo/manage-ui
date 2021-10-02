@@ -50,7 +50,7 @@ export default function Level4({ refetch }) {
           </div>
         </div>
         <div className="w-1/2 m-4 border-2 border-black">
-          <TableDetails numero={tableDetails.numero} />
+          <TableDetails numero={tableDetails} />
         </div>
       </div>
 

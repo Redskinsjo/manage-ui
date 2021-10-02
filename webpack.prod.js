@@ -1,9 +1,6 @@
-const { merge } = require("webpack-merge");
 const path = require("path");
-const common = require("./webpack.common.js");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   mode: "production",
@@ -17,12 +14,6 @@ module.exports = {
       template: "./public/index.html",
       filename: "./index.html",
     }),
-    new Dotenv({
-      path: path.resolve(__dirname, ".env"),
-    }),
-    // new webpack.ProvidePlugin({
-    //   "process.env.NODE_ENV": JSON.stringify("development"),
-    // }),
   ],
   entry: "./src/index.tsx",
   output: {

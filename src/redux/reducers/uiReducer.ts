@@ -4,10 +4,10 @@ import {
   DISPLAY_TABLE_DETAILS,
   DISPLAY_TABLE_MENU,
   DISPLAY_SELECT_ELEM,
-  GET_TABLES,
-} from "./actionCreators";
+} from "../actionCreators";
+import { combineReducers } from "redux";
 
-const initialState = {
+const uiInitialState = {
   tableDetails: false,
   tableMenu: false,
   addTable: false,
@@ -15,7 +15,13 @@ const initialState = {
   selectElem: false,
 };
 
-export const displayReducer = (state = initialState, action) => {
+interface IAction {
+  type: string;
+  numero?: number;
+  id?: string;
+}
+
+const uiReducer = (state = uiInitialState, action: IAction) => {
   switch (action.type) {
     case DISPLAY_ADD_DISH:
       return Object.assign({}, state, { addDish: !state.addDish });
@@ -32,12 +38,7 @@ export const displayReducer = (state = initialState, action) => {
           : { tableDetails: false }
       );
     case DISPLAY_TABLE_MENU:
-      return Object.assign(
-        {},
-        state,
-        // state.tableMenu ? { tableMenu: false } : { tableMenu: action.numero }
-        { tableMenu: action.numero }
-      );
+      return Object.assign({}, state, { tableMenu: action.numero });
     case DISPLAY_SELECT_ELEM:
       return Object.assign({}, state, { selectElem: action.id });
     default:
@@ -45,13 +46,4 @@ export const displayReducer = (state = initialState, action) => {
   }
 };
 
-export const dataReducer = (state = { tables: [] }, action) => {
-  switch (action.type) {
-    case GET_TABLES:
-      return {
-        tables: action.tables,
-      };
-    default:
-      return state;
-  }
-};
+export default uiReducer;

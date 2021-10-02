@@ -1,10 +1,5 @@
-import { displayReducer, dataReducer } from "./reducers";
-import { createStore, combineReducers } from "redux";
-
-const rootReducer = combineReducers({
-  display: displayReducer,
-  data: dataReducer,
-});
+import rootReducer from "./rootReducer";
+import { createStore } from "redux";
 
 const store = createStore(rootReducer);
 

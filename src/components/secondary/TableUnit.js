@@ -1,18 +1,19 @@
-import React, { useState, useContext } from "react";
-import { GlobalState, GlobalDispatch } from "../../App";
+import React, { useContext } from "react";
+import { GlobalState, GlobalDispatch } from "../../redux/GlobalProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation } from "@apollo/client";
 import { DELETE_TABLE } from "../../apollo/queries";
 import { useTranslation } from "react-i18next";
 
-function TableUnit({ id, numero, seats, indoor, outdoor, refetch }) {
-  const { tableDetails, tableMenu } = useContext(GlobalState);
+function TableUnit({ id, numero, seats, indoor, outdoor }) {
+  const { ui } = useContext(GlobalState);
+  const { tableDetails, tableMenu } = ui;
   const { displayTableDetails, displayTableMenu } = useContext(GlobalDispatch);
   const [deleteTable, { data }] = useMutation(DELETE_TABLE);
   const { t } = useTranslation();
 
   let selectedTable;
-  if (tableMenu.numero === numero) {
+  if (tableMenu === numero) {
     selectedTable = { id, numero, seats, indoor, outdoor };
   }
 
@@ -20,13 +21,11 @@ function TableUnit({ id, numero, seats, indoor, outdoor, refetch }) {
     <div className="w-full flex justify-center items-center ring-1 ring-gray-300">
       <div
         className={`flex items-center w-5/6 min-h-16 mx-4 my-8 hover:bg-yellow-300 cursor-pointer border-2 border-black ${
-          tableDetails.numero === numero && "bg-yellow-200"
+          tableDetails === numero && "bg-yellow-200"
         }`}
         onClick={(e) => {
           e.stopPropagation();
-          displayTableDetails(
-            tableDetails.numero === numero ? false : { numero }
-          );
+          displayTableDetails(tableDetails === numero ? false : numero);
         }}
       >
         <div className="w-full h-full flex justify-between px-4 items-center">
@@ -49,12 +48,10 @@ function TableUnit({ id, numero, seats, indoor, outdoor, refetch }) {
             icon={["fas", "ellipsis-h"]}
             className="text-4xl cursor-pointer"
             onClick={() => {
-              displayTableMenu(
-                tableMenu.numero === numero ? false : { numero }
-              );
+              displayTableMenu(tableMenu === numero ? false : numero);
             }}
           ></FontAwesomeIcon>
-          {tableMenu.numero === numero && (
+          {tableMenu === numero && (
             <div className="absolute top-8 bg-white w-full h-40 z-10 border-2">
               <div className="flex flex-col">
                 <div className="hover:bg-yellow-200 px-4 cursor-pointer">
@@ -66,7 +63,6 @@ function TableUnit({ id, numero, seats, indoor, outdoor, refetch }) {
                 <div
                   className="hover:bg-yellow-200 px-4 cursor-pointer"
                   onClick={() => {
-                    console.log(selectedTable.id);
                     deleteTable({
                       variables: { id: selectedTable.id },
                       refetchQueries: ["fetchTables"],

@@ -4,12 +4,14 @@ import NewTable from "../components/primary/NewTable";
 import NewDish from "../components/primary/NewDish";
 import AddElement from "../components/sharedComponents/AddElement";
 import TableDetails from "../components/primary/TableDetails";
-import { GlobalState, GlobalDispatch } from "../App";
+import { GlobalState, GlobalDispatch } from "../redux/GlobalProvider";
 import Language from "../components/sharedComponents/Language";
 
-export default function Level3({ refetch }) {
+export default function Level3() {
   const tableElemref = useRef();
-  const { addTable, addDish, tableDetails } = useContext(GlobalState);
+  const { ui, data } = useContext(GlobalState);
+  const { addTable, addDish, tableDetails } = ui;
+  const { refetch } = data;
   const { displayTableDetails, displaySelectElem } = useContext(GlobalDispatch);
 
   return (
@@ -57,7 +59,7 @@ export default function Level3({ refetch }) {
           </div>
         </div>
         <div className="w-1/2 m-4 border-2 border-black">
-          <TableDetails numero={tableDetails.numero} />
+          <TableDetails numero={tableDetails} />
         </div>
       </div>
 

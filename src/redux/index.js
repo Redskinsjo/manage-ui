@@ -1,22 +1,18 @@
 import { connect } from "react-redux";
-import App from "../App";
+import GlobalProvider from "./GlobalProvider";
 import {
   displayTableDetails,
   displayAddTable,
   displayAddDish,
   displayTableMenu,
   displaySelectElem,
-  getTables,
+  setTables,
 } from "./actionCreators";
 
 export const mapStateToProps = (state) => {
   return {
-    tableDetails: state.display.tableDetails,
-    addTable: state.display.addTable,
-    addDish: state.display.addDish,
-    tableMenu: state.display.tableMenu,
-    selectElem: state.display.selectElem,
-    tables: state.data.tables,
+    ui: state.ui,
+    data: state.data,
   };
 };
 
@@ -37,10 +33,13 @@ export const mapDispatchToProps = (dispatch) => {
     displaySelectElem: (id) => {
       dispatch(displaySelectElem(id));
     },
-    getTables: (tables) => {
-      dispatch(getTables(tables));
+    setTables: (tables) => {
+      dispatch(setTables(tables));
     },
   };
 };
 
-export const Container = connect(mapStateToProps, mapDispatchToProps)(App);
+export const Container = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GlobalProvider);

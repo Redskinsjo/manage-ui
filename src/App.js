@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, createContext } from "react";
+import React, { useContext } from "react";
 import "./App.css";
 import io from "socket.io-client";
 import data from "./data.json";
@@ -16,9 +16,8 @@ import { faBtc } from "@fortawesome/free-brands-svg-icons";
 import Level1 from "./states/Level1";
 import Level2 from "./states/Level2";
 import Level3 from "./states/Level3";
-import Level4 from "./states/Level4";
-import { useQuery } from "@apollo/client";
-import { FETCH_TABLES } from "./apollo/queries";
+import { devUri, prodUri } from "./apollo/uris";
+import { GlobalState } from "./redux/GlobalProvider";
 
 library.add(
   faCircle,
@@ -31,71 +30,28 @@ library.add(
   faCaretDown
 );
 
-const socket = io.connect("https://manage-graphql-api.herokuapp.com");
+const server = process.env.NODE_ENV === "development" ? devUri : prodUri;
+const socket = io.connect(server);
 
-export const GlobalState = createContext();
-export const GlobalDispatch = createContext();
-export const GlobalTables = createContext();
-
-function App({
-  tableDetails,
-  addTable,
-  addDish,
-  displayTableDetails,
-  displayAddTable,
-  displayAddDish,
-  tableMenu,
-  displayTableMenu,
-  selectElem,
-  displaySelectElem,
-  tables,
-  getTables,
-}) {
+function App() {
   // socket.on("connect", () => {
   //   console.log("connection");
   // });
-  const { loading, error, data, refetch } = useQuery(FETCH_TABLES);
-
-  useEffect(() => {
-    getTables(data?.tables || tables);
-  });
+  const { ui } = useContext(GlobalState);
+  const { addTable, addDish, tableDetails } = ui;
 
   return (
-    <GlobalTables.Provider value={data?.tables || tables}>
-      <GlobalState.Provider
-        value={{ tableDetails, addTable, addDish, tableMenu, selectElem }}
-      >
-        <GlobalDispatch.Provider
-          value={{
-            displayTableDetails,
-            displayAddTable,
-            displayAddDish,
-            displayTableMenu,
-            displaySelectElem,
-            getTables,
-          }}
-        >
-          {(addTable && addDish && tableDetails) ||
-          (addTable && tableDetails) ||
-          (addDish && tableDetails) ? (
-            <Level3 refetch={refetch} />
-          ) : tableDetails ? (
-            <Level2 refetch={refetch} />
-          ) : (
-            <Level1 refetch={refetch} />
-          )}
-          {/* {addTable && addDish && tableDetails ? (
-            <Level4 refetch={refetch} />
-          ) : (addTable && tableDetails) || (addDish && tableDetails) ? (
-            <Level3 refetch={refetch} />
-          ) : tableDetails ? (
-            <Level2 refetch={refetch} />
-          ) : (
-            <Level1 refetch={refetch} />
-          )} */}
-        </GlobalDispatch.Provider>
-      </GlobalState.Provider>
-    </GlobalTables.Provider>
+    <>
+      {(addTable && addDish && tableDetails) ||
+      (addTable && tableDetails) ||
+      (addDish && tableDetails) ? (
+        <Level3 />
+      ) : tableDetails ? (
+        <Level2 />
+      ) : (
+        <Level1 />
+      )}
+    </>
   );
 }
 
