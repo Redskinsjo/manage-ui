@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .primary-layout {
+    @apply px-20 py-4 h-full flex flex-col;
+  }
+  .aligned-details-table {
+    @apply w-36 h-10 pl-2 flex items-center justify-end px-2;
+  }
+  .aligned-details-dish {
+    @apply flex justify-between items-center mb-1 h-8;
+  }
+}

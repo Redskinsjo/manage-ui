@@ -1,0 +1,222 @@
+[
+  {
+    "_id": 43421,
+    "numero": 1,
+    "seats": 2,
+    "indoor": true,
+    "outdoor": false,
+    "guests": {
+      "count": 2,
+      "profiles": [
+        {
+          "fullname": "John Doe",
+          "firstname": "John",
+          "lastname": "Doe",
+          "returningGuest": true,
+          "previousDishes": [
+            { "id": 1, "name": "entrecote" },
+            { "id": 3, "name": "oeufs pochés" }
+          ],
+          "anniversary": "some date"
+        },
+        {
+          "fullname": "Emy Mitchell",
+          "firstname": "Emy",
+          "lastname": "Mitchell",
+          "returningGuest": false,
+          "previousDishes": null,
+          "anniversary": null
+        }
+      ]
+    },
+    "orders": [
+      {
+        "id": 2,
+        "name": "saumon",
+        "main": "saumon",
+        "side": "haricots",
+        "salt": "S",
+        "pepper": null,
+        "herbsAndSpices": ["aneth"],
+        "sauce": { "main": "milk", "side": "butter", "ratio": "1/2" },
+        "cooking": "rosé"
+      },
+      {
+        "id": 3,
+        "name": "oeufs pochés",
+        "main": "oeufs",
+        "side": "asperges",
+        "salt": "S",
+        "pepper": "S",
+        "herbsAndSpices": ["ciboulette", "persil"],
+        "sauce": { "main": "mayonnaise", "side": null, "ratio": "1" },
+        "cooking": null
+      }
+    ]
+  },
+  {
+    "_id": 98098,
+    "numero": 2,
+    "seats": 4,
+    "indoor": true,
+    "outdoor": false,
+    "guests": {
+      "count": 2,
+      "profiles": [
+        {
+          "fullname": "John Doe",
+          "firstname": "John",
+          "lastname": "Doe",
+          "returningGuest": true,
+          "previousDishes": [
+            { "id": 1, "name": "entrecote" },
+            { "id": 3, "name": "oeufs pochés" }
+          ],
+          "anniversary": "some date"
+        },
+        {
+          "fullname": "Emy Mitchell",
+          "firstname": "Emy",
+          "lastname": "Mitchell",
+          "returningGuest": false,
+          "previousDishes": null,
+          "anniversary": null
+        }
+      ]
+    },
+    "orders": [
+      {
+        "id": 2,
+        "name": "saumon",
+        "main": "saumon",
+        "side": "haricots",
+        "salt": "S",
+        "pepper": null,
+        "herbsAndSpices": ["aneth"],
+        "sauce": { "main": "milk", "side": "butter", "ratio": "1/2" },
+        "cooking": "rosé"
+      },
+      {
+        "id": 3,
+        "name": "oeufs pochés",
+        "main": "oeufs",
+        "side": "asperges",
+        "salt": "S",
+        "pepper": "S",
+        "herbsAndSpices": ["ciboulette", "persil"],
+        "sauce": { "main": "mayonnaise", "side": null, "ratio": "1" },
+        "cooking": null
+      }
+    ]
+  },
+  {
+    "_id": 786876,
+    "numero": 3,
+    "seats": 4,
+    "indoor": true,
+    "outdoor": false,
+    "guests": {
+      "count": 2,
+      "profiles": [
+        {
+          "fullname": "John Doe",
+          "firstname": "John",
+          "lastname": "Doe",
+          "returningGuest": true,
+          "previousDishes": [
+            { "id": 1, "name": "entrecote" },
+            { "id": 3, "name": "oeufs pochés" }
+          ],
+          "anniversary": "some date"
+        },
+        {
+          "fullname": "Emy Mitchell",
+          "firstname": "Emy",
+          "lastname": "Mitchell",
+          "returningGuest": false,
+          "previousDishes": null,
+          "anniversary": null
+        }
+      ]
+    },
+    "orders": [
+      {
+        "id": 2,
+        "name": "saumon",
+        "main": "saumon",
+        "side": "haricots",
+        "salt": "S",
+        "pepper": null,
+        "herbsAndSpices": ["aneth"],
+        "sauce": { "main": "milk", "side": "butter", "ratio": "1/2" },
+        "cooking": "rosé"
+      },
+      {
+        "id": 3,
+        "name": "oeufs pochés",
+        "main": "oeufs",
+        "side": "asperges",
+        "salt": "S",
+        "pepper": "S",
+        "herbsAndSpices": ["ciboulette", "persil"],
+        "sauce": { "main": "mayonnaise", "side": null, "ratio": "1" },
+        "cooking": null
+      }
+    ]
+  },
+  {
+    "_id": 987698,
+    "numero": 4,
+    "seats": 6,
+    "indoor": true,
+    "outdoor": false,
+    "guests": {
+      "count": 2,
+      "profiles": [
+        {
+          "fullname": "John Doe",
+          "firstname": "John",
+          "lastname": "Doe",
+          "returningGuest": true,
+          "previousDishes": [
+            { "id": 1, "name": "entrecote" },
+            { "id": 3, "name": "oeufs pochés" }
+          ],
+          "anniversary": "some date"
+        },
+        {
+          "fullname": "Emy Mitchell",
+          "firstname": "Emy",
+          "lastname": "Mitchell",
+          "returningGuest": false,
+          "previousDishes": null,
+          "anniversary": null
+        }
+      ]
+    },
+    "orders": [
+      {
+        "id": 2,
+        "name": "saumon",
+        "main": "saumon",
+        "side": "haricots",
+        "salt": "S",
+        "pepper": null,
+        "herbsAndSpices": ["aneth"],
+        "sauce": { "main": "milk", "side": "butter", "ratio": "1/2" },
+        "cooking": "rosé"
+      },
+      {
+        "id": 3,
+        "name": "oeufs pochés",
+        "main": "oeufs",
+        "side": "asperges",
+        "salt": "S",
+        "pepper": "S",
+        "herbsAndSpices": ["ciboulette", "persil"],
+        "sauce": { "main": "mayonnaise", "side": null, "ratio": "1" },
+        "cooking": null
+      }
+    ]
+  }
+]
