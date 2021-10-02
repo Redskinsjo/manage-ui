@@ -6,7 +6,7 @@ const client = new ApolloClient({
   uri:
     process.env.NODE_ENV === "development"
       ? "http://localhost:4000/graphql"
-      : process.env.PROD_GRAPHQL_API + "/graphql",
+      : "http://google.com" + "/graphql",
   cache: new InMemoryCache(),
   headers: { "Content-Type": "application/json" },
 });
