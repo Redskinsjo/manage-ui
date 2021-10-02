@@ -60,8 +60,6 @@ function App({
     getTables(data?.tables || tables);
   });
 
-  console.log(process.env.REACT_APP_PROD_GRAPHQL_API);
-
   return (
     <GlobalTables.Provider value={data?.tables || tables}>
       <GlobalState.Provider
