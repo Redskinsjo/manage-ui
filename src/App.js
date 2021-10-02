@@ -60,6 +60,7 @@ function App({
     getTables(data?.tables || tables);
   });
 
+  console.log(process.env.NODE_ENV);
   return (
     <GlobalTables.Provider value={data?.tables || tables}>
       <GlobalState.Provider
