@@ -18,8 +18,8 @@ export const mapStateToProps = (state) => {
 
 export const mapDispatchToProps = (dispatch) => {
   return {
-    displayTableDetails: (numero) => {
-      dispatch(displayTableDetails(numero));
+    displayTableDetails: (value) => {
+      dispatch(displayTableDetails(value));
     },
     displayAddTable: () => {
       dispatch(displayAddTable());
@@ -27,8 +27,8 @@ export const mapDispatchToProps = (dispatch) => {
     displayAddDish: () => {
       dispatch(displayAddDish());
     },
-    displayTableMenu: (numero) => {
-      dispatch(displayTableMenu(numero));
+    displayTableMenu: (value) => {
+      dispatch(displayTableMenu(value));
     },
     displaySelectElem: (id) => {
       dispatch(displaySelectElem(id));

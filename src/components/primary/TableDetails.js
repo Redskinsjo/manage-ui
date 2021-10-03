@@ -14,7 +14,6 @@ export default function TableDetails({ numero }) {
 
   const getTableData = async () => {
     const table = data.find((table) => table.numero === numero);
-    // const table = await
     // const table = tables.find((table) => table.numero === numero);
     setTableData(table);
   };
@@ -46,7 +45,7 @@ export default function TableDetails({ numero }) {
           ? t("guest")
           : t("guests")}
       </div>
-      <div className="flex-grow">
+      <div className="flex-grow overflow-y-scroll overflow-hidden">
         {tableData &&
           tableData.orders.map((item) => (
             <Dish

@@ -105,9 +105,11 @@ export default function NewTable() {
     <div className="flex flex-col border-2 border-gray-200 px-4 py-2">
       <form onSubmit={handleSubmit}>
         <div className="flex justify-between item-center">
-          <label htmlFor="tableNumber" className="flex items-center">
-            {t("tableNumber")}:
-          </label>
+          <div className="flex items-start">
+            <label htmlFor="tableNumber" className="h-8 flex items-center">
+              {t("tableNumber")}:
+            </label>
+          </div>
           <SelectElement
             id="tableNumber"
             elem="table"
@@ -116,7 +118,6 @@ export default function NewTable() {
             onChangeSelect={(opt) => {
               setTableNumber(opt.numero);
             }}
-            classnames={"w-36 h-10"}
           />
         </div>
 

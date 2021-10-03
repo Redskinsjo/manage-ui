@@ -102,10 +102,12 @@ export default function NewDish() {
         className="flex flex-col items-center w-full"
         onSubmit={handleSubmit}
       >
-        <div className="flex justify-between item-center">
-          <label htmlFor="tableNumber" className="flex items-center">
-            {t("dish")}:
-          </label>
+        <div className="flex justify-between item-center w-full">
+          <div className="flex items-start">
+            <label htmlFor="tableNumber" className="h-8 flex items-center">
+              {t("dish")}:
+            </label>
+          </div>
           <SelectElement
             // id="main"
             initValue={t("choose")}
@@ -114,7 +116,6 @@ export default function NewDish() {
             onChangeSelect={(opt) => {
               setName(opt._id);
             }}
-            classnames={"w-full h-10 mb-4"}
             elem="dish"
           />
         </div>

@@ -41,7 +41,13 @@ export default function SelectElement({
     setValue(initValue);
   }, [initValue]);
   return (
-    <div className={classnames ? classnames : "flex-auto flex justify-end"}>
+    <div
+      className={
+        classnames
+          ? classnames + "flex-auto flex justify-end"
+          : "flex-auto flex justify-end"
+      }
+    >
       {selectElem === id && state.open ? (
         <div className="flex flex-col items-between bg-gray-600 rounded-md px-2 py-1 relative z-10">
           {options.map((opt, index) => {
@@ -50,12 +56,14 @@ export default function SelectElement({
                 className="hover:bg-blue-400 group flex justify-between cursor-pointer"
                 onClick={
                   onChangeSelect
-                    ? () => {
+                    ? (e) => {
+                        e.stopPropagation();
                         onChangeSelect(opt);
                         setValue(opt);
                         setState({ open: false });
                       }
-                    : () => {
+                    : (e) => {
+                        e.stopPropagation();
                         setValue(opt);
                         setState({ open: false });
                       }
@@ -92,7 +100,7 @@ export default function SelectElement({
         </div>
       ) : (
         <div
-          className="flex justify-end items-center cursor-pointer hover:bg-gray-100 px-2 py-1"
+          className="flex justify-end items-center cursor-pointer hover:bg-gray-100 px-2 py-1 w-full"
           onClick={(e) => {
             setState({ open: true });
             e.stopPropagation();

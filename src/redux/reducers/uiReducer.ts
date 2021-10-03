@@ -17,7 +17,7 @@ const uiInitialState = {
 
 interface IAction {
   type: string;
-  numero?: number;
+  value?: number | false;
   id?: string;
 }
 
@@ -28,17 +28,9 @@ const uiReducer = (state = uiInitialState, action: IAction) => {
     case DISPLAY_ADD_TABLE:
       return Object.assign({}, state, { addTable: !state.addTable });
     case DISPLAY_TABLE_DETAILS:
-      return Object.assign(
-        {},
-        state,
-        !state.tableDetails
-          ? { tableDetails: action.numero }
-          : state.tableDetails && action.numero
-          ? { tableDetails: action.numero }
-          : { tableDetails: false }
-      );
+      return Object.assign({}, state, { tableDetails: action.value });
     case DISPLAY_TABLE_MENU:
-      return Object.assign({}, state, { tableMenu: action.numero });
+      return Object.assign({}, state, { tableMenu: action.value });
     case DISPLAY_SELECT_ELEM:
       return Object.assign({}, state, { selectElem: action.id });
     default:

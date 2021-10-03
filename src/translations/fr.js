@@ -14,7 +14,7 @@ const translationsFr = {
   none: "aucun",
   //
   // message when choosing lng
-  languageChoiceMsg: "now in French",
+  languageChoiceMsg: "maintenant en Français",
   //
   // tableUnit
   guest: "invité",
@@ -30,7 +30,8 @@ const translationsFr = {
   //
   // new table
   choose: "Choisir",
-  in_out: "int/ext",
+  in_out: "Int/Ext",
   addAction: "Ajouter",
+  guestName: "Invité",
 };
 export default translationsFr;

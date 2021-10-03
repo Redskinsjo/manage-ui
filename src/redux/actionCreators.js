@@ -5,10 +5,10 @@ export const DISPLAY_TABLE_MENU = "DISPLAY_TABLE_MENU";
 export const SET_TABLES = "SET_TABLES";
 export const DISPLAY_SELECT_ELEM = "DISPLAY_SELECT_ELEM";
 
-export const displayTableDetails = (numero) => {
+export const displayTableDetails = (value) => {
   return {
     type: DISPLAY_TABLE_DETAILS,
-    numero,
+    value,
   };
 };
 export const displayAddDish = () => {
@@ -21,10 +21,10 @@ export const displayAddTable = () => {
     type: DISPLAY_ADD_TABLE,
   };
 };
-export const displayTableMenu = (numero) => {
+export const displayTableMenu = (value) => {
   return {
     type: DISPLAY_TABLE_MENU,
-    numero,
+    value,
   };
 };
 export const displaySelectElem = (id) => {

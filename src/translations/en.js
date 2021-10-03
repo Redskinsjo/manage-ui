@@ -30,7 +30,8 @@ const translationsEn = {
   //
   // new table
   choose: "Choose",
-  in_out: "in/out",
+  in_out: "In/Out",
   addAction: "Add",
+  guestName: "Guest",
 };
 export default translationsEn;

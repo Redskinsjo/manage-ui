@@ -18,7 +18,11 @@ function TableUnit({ id, numero, seats, indoor, outdoor }) {
   }
 
   return (
-    <div className="w-full flex justify-center items-center ring-1 ring-gray-300">
+    <div
+      className={`w-full flex ${
+        tableMenu === numero ? "justify-start" : "justify-center"
+      } items-center ring-1 ring-gray-300`}
+    >
       <div
         className={`flex items-center w-5/6 min-h-16 mx-4 my-8 hover:bg-yellow-300 cursor-pointer border-2 border-black ${
           tableDetails === numero && "bg-yellow-200"
@@ -52,9 +56,12 @@ function TableUnit({ id, numero, seats, indoor, outdoor }) {
             }}
           ></FontAwesomeIcon>
           {tableMenu === numero && (
-            <div className="absolute top-8 bg-white w-full h-40 z-10 border-2">
+            <div
+              className="absolute top-8 -left-4 bg-white h-40 z-10 border-2"
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="flex flex-col">
-                <div className="hover:bg-yellow-200 px-4 cursor-pointer">
+                <div className="hover:bg-yellow-200 px-4 cursor-not-allowed">
                   <div className="flex items-center justify-between my-1">
                     <FontAwesomeIcon icon={["fab", "btc"]}></FontAwesomeIcon>
                     <span>{t("billTable")}</span>

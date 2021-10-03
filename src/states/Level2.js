@@ -4,51 +4,46 @@ import AddElement from "../components/sharedComponents/AddElement";
 import TableDetails from "../components/primary/TableDetails";
 import { GlobalState, GlobalDispatch } from "../redux/GlobalProvider";
 import Language from "../components/sharedComponents/Language";
+import ReturnBar from "../components/sharedComponents/ReturnBar";
 
 export default function Level2() {
-  const tableElemref = useRef();
+  const [hover, setHover] = React.useState();
   const { ui, data } = useContext(GlobalState);
-  const { tableDetails } = ui;
+  const { tableDetails, tableMenu } = ui;
   const { refetch } = data;
-  const { displayTableDetails: dispatch } = useContext(GlobalDispatch);
+  const { displayTableDetails, displayTableMenu } = useContext(GlobalDispatch);
 
   return (
-    <div className="flex flex-col h-screen">
+    <div
+      className="flex flex-col h-screen"
+      onClick={() => {
+        if (tableMenu) {
+          displayTableMenu(false);
+        }
+      }}
+    >
       <div className="flex w-full justify-end px-4">
         <Language />
       </div>
 
       <div className="w-screen flex h-4/6">
-        <div
-          ref={tableElemref}
-          className="flex w-1/2 flex-col border-2 border-black m-4 px-4 cursor-pointer"
-          onClick={() => {
-            dispatch(false);
-          }}
-          onMouseLeave={() => {
-            tableElemref.current.classList.remove("bg-gray-200");
-          }}
-          onMouseOver={(e) => {
-            tableElemref.current.classList.add("bg-gray-200");
-            tableElemref.current.classList.add("cursor-pointer");
-          }}
-        >
-          <div
-            className="max-w-1/2 bg-white px-4 h-full"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            onMouseOver={(e) => {
-              e.stopPropagation();
-              tableElemref.current.classList.remove("bg-gray-200");
-              tableElemref.current.classList.remove("cursor-pointer");
-            }}
-          >
+        <div className="flex w-1/2 flex border-2 border-black m-4 r">
+          <ReturnBar
+            hover={hover}
+            setHover={setHover}
+            dispatch={displayTableDetails}
+          />
+          <div className="w-full bg-white px-4 h-full">
             <div className="flex flex-col py-2 h-full">
               <Tables refetch={refetch} />
               <AddElement unit={"table"} />
             </div>
           </div>
+          <ReturnBar
+            hover={hover}
+            setHover={setHover}
+            dispatch={displayTableDetails}
+          />
         </div>
         <div className="w-1/2 m-4 border-2 border-black">
           <TableDetails numero={tableDetails} />
