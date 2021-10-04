@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import TableUnit from "../secondary/TableUnit";
 import { GlobalState } from "../../redux/GlobalProvider";
 
-export default function Tables({ refetch }) {
+export default function Tables() {
   const {
     data: { tables },
   } = useContext(GlobalState);
@@ -18,7 +18,6 @@ export default function Tables({ refetch }) {
               seats={table.seats}
               indoor={table.indoor}
               outdoor={table.outdoor}
-              refetch={refetch}
             />
           );
         })}

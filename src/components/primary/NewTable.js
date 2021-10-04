@@ -5,6 +5,7 @@ import { CREATE_TABLE } from "../../apollo/queries";
 import { useMutation } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 import SelectElement from "../sharedComponents/SelectElement";
+import { message } from "antd";
 
 export default function NewTable() {
   const [tableNumber, setTableNumber] = useState("");
@@ -24,14 +25,15 @@ export default function NewTable() {
   const [loading, setLoading] = useState(true);
   let selectedTable;
   let guestsOnTable = guests.filter((guest) => guest.length > 0);
+  const { t } = useTranslation();
 
   const [createTable, { data }] = useMutation(CREATE_TABLE, {
     onCompleted: () => {
       setReset(!reset);
       setTableNumber("");
+      message.success(t("tableCreated"));
     },
   });
-  const { t } = useTranslation();
 
   let profiles = [guest1, guest2, guest3, guest4, guest5, guest6];
   for (let i = 0; i < profiles.length; i++) {}

@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { CREATE_DISH } from "../../apollo/queries";
 import { useMutation } from "@apollo/client";
 import { GlobalState } from "../../redux/GlobalProvider";
-const { SHOW_PARENT, SHOW_ALL } = TreeSelect;
+// const { SHOW_PARENT, SHOW_ALL } = TreeSelect;
 
 export default function NewDish() {
   const [orders, setOrders] = useState();
@@ -16,15 +16,16 @@ export default function NewDish() {
   const [herbsAndSpices, setHerbsAndSpices] = useState();
   const [sauces, setSauces] = useState();
   const [loading, setLoading] = useState(true);
-  const [name, setName] = useState();
   const [selectedOrder, setSelectedOrder] = useState();
   const [main, setMain] = useState();
   const [side, setSide] = useState();
   const [herbs, setHerbs] = useState();
+  const [isOrderSelected, setIsOrderSelected] = useState(false);
   const [sauce, setSauce] = useState();
   const [salt, setSalt] = useState();
   const [pepper, setPepper] = useState();
   const [cooking, setCooking] = useState();
+  const [value, setValue] = useState([]);
   const [createOrder] = useMutation(CREATE_DISH, {
     onCompleted: (data) => {
       console.log(data);
@@ -32,10 +33,6 @@ export default function NewDish() {
   });
   const { ui } = useContext(GlobalState);
   const { tableDetails } = ui;
-  console.log("selectedOrder", selectedOrder);
-  console.log("main", main);
-  console.log("salt", salt);
-  console.log("pepper", pepper);
 
   const { t } = useTranslation();
 
@@ -52,7 +49,6 @@ export default function NewDish() {
   ];
 
   const fetchAllData = () => {
-    console.log("appelé");
     return Promise.all(promises)
       .then(
         ([
@@ -62,11 +58,6 @@ export default function NewDish() {
           { data: herbsAndSpices },
           { data: sauces },
         ]) => {
-          console.log("useeffect orders", orders);
-          console.log("useeffect mains", mains);
-          console.log("useeffect sides", sides);
-          console.log("useeffect herbs", herbsAndSpices);
-          console.log("useeffect sauces", sauces);
           setOrders(orders);
           setMains(mains);
           setSides(sides);
@@ -83,20 +74,17 @@ export default function NewDish() {
     fetchAllData();
   }, []);
 
-  const selectOrder = () => {
-    const order = orders.find((order) => order._id === name);
-    if (order) {
-      setSelectedOrder(order);
-      setMain(order.main);
-      setSide(order.side);
-      // const herbs = order.herbsAndSpices.map(
-      //   (herb) => herb.name + "|" + herb.origin
-      // );
-      setHerbs(order.herbsAndSpices);
-      setSauce(order.sauce);
-      setSalt(order.salt || t("none"));
-      setPepper(order.pepper || t("none"));
-      setCooking(order.cooking);
+  const selectOrder = (opt) => {
+    if (opt) {
+      setSelectedOrder(opt);
+      setMain(opt.main);
+      setSide(opt.side);
+      setHerbs(opt.herbsAndSpices);
+      setSauce(opt.sauce);
+      setSalt(opt.salt || t("none"));
+      setPepper(opt.pepper || t("none"));
+      setCooking(opt.cooking || t("none"));
+      setIsOrderSelected(true);
     } else {
       setSelectedOrder({ name: t("choose") });
       setMain(undefined);
@@ -108,37 +96,36 @@ export default function NewDish() {
       setCooking(undefined);
     }
   };
-  useEffect(() => {
-    if (orders) {
-      selectOrder();
-    }
-  }, [name]);
 
-  const [value, setValue] = useState(["OK"]);
+  useEffect(() => {
+    if (isOrderSelected) setValue(herbs.map((h) => h.name));
+  }, [isOrderSelected]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const herbsIds = value.map((herb) => {
+      const result = herbsAndSpices.find((h) => h.name === herb);
+      if (result) return result._id;
+      else throw new Error("herb was not found");
+    });
     createOrder({
       variables: {
         data: {
           table: tableDetails,
-          name,
-          main,
-          side,
+          name: selectedOrder.name,
+          main: main._id,
+          side: side._id,
           salt,
           pepper,
-          herbsAndSpices,
-          sauce,
+          herbsAndSpices: herbsIds,
+          sauce: sauce._id,
           cooking,
         },
       },
       refetchQueries: ["fetchOrdersByTable"],
     });
   };
-  if (!loading) {
-    console.log("!loading", orders);
-  }
-  console.log("open", orders);
+
   return (
     <div className="border-2 border-gray-200 px-4 py-2">
       <form
@@ -152,12 +139,12 @@ export default function NewDish() {
             </label>
           </div>
           <SelectElement
-            // id="main"
             initValue={t("choose")}
             options={!loading && [t("choose"), ...orders]}
             complex={true}
             onChangeSelect={(opt) => {
-              setName(opt._id);
+              selectOrder(opt);
+              console.log(opt);
             }}
             elem="dish"
           />
@@ -165,7 +152,7 @@ export default function NewDish() {
         {selectedOrder && selectedOrder.name !== t("choose") && (
           <div className="w-full">
             <div className="aligned-details-dish">
-              <span className="flex-auto">{t("main")}</span>
+              <span>{t("main")}</span>
               <SelectElement
                 elem="dish"
                 id="main"
@@ -175,7 +162,7 @@ export default function NewDish() {
               />
             </div>
             <div className="aligned-details-dish">
-              <span className="flex-auto">{t("side")}</span>
+              <span>{t("side")}</span>
               <SelectElement
                 elem="dish"
                 id="side"
@@ -188,16 +175,14 @@ export default function NewDish() {
               <span className="flex-auto">{t("herbsAndSpices")}</span>
               <TreeSelect
                 value={value}
-                treeData={[
-                  { title: "OK", value: "OK" },
-                  { title: "node2", value: "node2" },
-                  { title: "node3", value: "node3" },
-                  { title: "node4", value: "node4" },
-                ]}
-                style={{
-                  height: "100%",
-                  flex: 1,
-                }}
+                treeData={
+                  !loading &&
+                  herbsAndSpices.map((herb) => ({
+                    title: herb.name,
+                    value: herb.name,
+                  }))
+                }
+                style={{ flex: 1 }}
                 treeCheckable={true}
                 onSelect={(value, node, extra) => {
                   console.log(value, node, extra);
@@ -210,7 +195,7 @@ export default function NewDish() {
               />
             </div>
             <div className="aligned-details-dish">
-              <span className="flex-auto">{t("sauce")}</span>
+              <span>{t("sauce")}</span>
               <SelectElement
                 elem="dish"
                 id="sauce"
@@ -220,7 +205,7 @@ export default function NewDish() {
               />
             </div>
             <div className="aligned-details-dish">
-              <span className="flex-auto">{t("salt")}</span>
+              <span>{t("salt")}</span>
               <SelectElement
                 elem="dish"
                 id="salt"
@@ -229,7 +214,7 @@ export default function NewDish() {
               />
             </div>
             <div className="aligned-details-dish">
-              <span className="flex-auto">{t("pepper")}</span>
+              <span>{t("pepper")}</span>
               <SelectElement
                 elem="dish"
                 id="pepper"
@@ -238,7 +223,7 @@ export default function NewDish() {
               />
             </div>
             <div className="aligned-details-dish">
-              <span className="flex-auto">{t("cooking")}</span>
+              <span>{t("cooking")}</span>
               <SelectElement
                 elem="dish"
                 id="cooking"

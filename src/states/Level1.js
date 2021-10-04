@@ -7,9 +7,8 @@ import Language from "../components/sharedComponents/Language";
 
 function Level1() {
   // const level1Ref = useRef();
-  const { ui, data } = useContext(GlobalState);
+  const { ui } = useContext(GlobalState);
   const { addTable, tableMenu } = ui;
-  const { refetch } = data;
   const { displayTableMenu } = useContext(GlobalDispatch);
 
   return (
@@ -25,12 +24,12 @@ function Level1() {
         <Language />
       </div>
       <div className="primary-layout justify-center w-screen border-2 border-black h-4/6">
-        <Tables refetch={refetch} />
+        <Tables />
         <AddElement unit={"table"} />
       </div>
       {addTable && (
         <div className="primary-layout border-2 border-black">
-          <NewTable refetch={refetch} />
+          <NewTable />
         </div>
       )}
     </div>

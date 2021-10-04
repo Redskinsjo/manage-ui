@@ -13,9 +13,6 @@ const translationsFr = {
   well_done: "à point",
   none: "aucun",
   //
-  // message when choosing lng
-  languageChoiceMsg: "maintenant en Français",
-  //
   // tableUnit
   guest: "invité",
   guests: "invités",
@@ -24,8 +21,10 @@ const translationsFr = {
   billTable: "Payer",
   deleteTable: "Supprimer",
   //
-  // message when deleting table
-  msgDeleted: "table a bien été supprimée",
+  // messages
+  languageChoiceMsg: "maintenant en Français",
+  tableDeleted: "la table a bien été supprimée",
+  tableCreated: "la table a bien été créée",
   //
   // tableDetails
   tableNumber: "Table",

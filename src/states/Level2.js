@@ -8,9 +8,8 @@ import ReturnBar from "../components/sharedComponents/ReturnBar";
 
 export default function Level2() {
   const [hover, setHover] = React.useState();
-  const { ui, data } = useContext(GlobalState);
+  const { ui } = useContext(GlobalState);
   const { tableDetails, tableMenu } = ui;
-  const { refetch } = data;
   const { displayTableDetails, displayTableMenu } = useContext(GlobalDispatch);
 
   return (
@@ -35,7 +34,7 @@ export default function Level2() {
           />
           <div className="w-full bg-white px-4 h-full">
             <div className="flex flex-col py-2 h-full">
-              <Tables refetch={refetch} />
+              <Tables />
               <AddElement unit={"table"} />
             </div>
           </div>

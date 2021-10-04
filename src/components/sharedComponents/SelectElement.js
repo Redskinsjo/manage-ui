@@ -18,8 +18,6 @@ export default function SelectElement({
   const { selectElem } = ui;
   const { displaySelectElem } = useContext(GlobalDispatch);
 
-  console.log("value", value);
-
   const testStructure = (arg) => {
     if (typeof arg === "string") {
       return arg;
@@ -48,8 +46,8 @@ export default function SelectElement({
     <div
       className={
         classnames
-          ? classnames + "flex-auto flex justify-end"
-          : "flex-auto flex justify-end"
+          ? classnames + "flex-auto flex justify-end ml-4"
+          : "flex-auto flex justify-end ml-4"
       }
     >
       {selectElem === id && state.open ? (

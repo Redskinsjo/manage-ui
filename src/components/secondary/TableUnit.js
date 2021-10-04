@@ -4,17 +4,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMutation } from "@apollo/client";
 import { DELETE_TABLE } from "../../apollo/queries";
 import { useTranslation } from "react-i18next";
+import { message } from "antd";
 
 function TableUnit({ id, numero, seats, indoor, outdoor }) {
   const { ui } = useContext(GlobalState);
   const { tableDetails, tableMenu } = ui;
   const { displayTableDetails, displayTableMenu } = useContext(GlobalDispatch);
+  const { t } = useTranslation();
   const [deleteTable, { data }] = useMutation(DELETE_TABLE, {
     onCompleted: () => {
       displayTableMenu(false);
+      message.success(t("tableDeleted"));
     },
   });
-  const { t } = useTranslation();
 
   let selectedTable;
   if (tableMenu === numero) {

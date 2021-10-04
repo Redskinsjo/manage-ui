@@ -18,7 +18,24 @@ export const FETCH_TABLES = gql`
         }
       }
       orders {
+        _id
         name
+        main {
+          name
+        }
+        side {
+          name
+        }
+        herbsAndSpices {
+          name
+        }
+        sauce {
+          name
+        }
+        salt
+        pepper
+        table
+        cooking
       }
     }
   }
@@ -66,6 +83,12 @@ export const CREATE_TABLE = gql`
     }
   }
 `;
+
+// export const FETCH_ORDERS = gql`
+//   query fetchOrders {
+//     orders
+//   }
+// `
 
 // continuer ici
 // export const FETCH_ORDERS_BY_TABLE = gql`

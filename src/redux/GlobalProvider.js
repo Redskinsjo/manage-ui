@@ -29,7 +29,7 @@ const GlobalProvider = ({
     ui,
     data: { ...storedData, refetch },
   };
-
+  console.log(state.data);
   return (
     <GlobalState.Provider value={state}>
       <GlobalDispatch.Provider

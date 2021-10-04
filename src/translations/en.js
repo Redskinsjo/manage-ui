@@ -13,9 +13,6 @@ const translationsEn = {
   well_done: "well done",
   none: "none",
   //
-  // message when choosing lng
-  languageChoiceMsg: "now in English",
-  //
   // tableUnit
   guest: "guest",
   guests: "guests",
@@ -24,8 +21,10 @@ const translationsEn = {
   billTable: "Bill",
   deleteTable: "Delete",
   //
-  // message when deleting table
-  msgDeleted: "table was deleted",
+  // messages
+  languageChoiceMsg: "now in English",
+  tableDeleted: "the table was deleted",
+  tableCreated: "the table was created",
   //
   // tableDetails
   tableNumber: "Table",

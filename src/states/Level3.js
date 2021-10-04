@@ -10,9 +10,8 @@ import ReturnBar from "../components/sharedComponents/ReturnBar";
 
 export default function Level3() {
   const [hover, setHover] = React.useState();
-  const { ui, data } = useContext(GlobalState);
+  const { ui } = useContext(GlobalState);
   const { addTable, addDish, tableDetails, tableMenu } = ui;
-  const { refetch } = data;
   const { displayTableDetails, displaySelectElem, displayTableMenu } =
     useContext(GlobalDispatch);
 
@@ -39,7 +38,7 @@ export default function Level3() {
           />
           <div className="w-full bg-white px-4 h-full">
             <div className="flex flex-col py-2 h-full">
-              <Tables refetch={refetch} />
+              <Tables />
               <AddElement unit={"table"} />
             </div>
           </div>
@@ -59,7 +58,7 @@ export default function Level3() {
         <div className="w-screen flex">
           <div className="flex w-1/2 flex-col border-2 border-black m-4 px-4">
             <div className="flex flex-col py-2 h-full">
-              <NewTable refetch={refetch} />
+              <NewTable />
             </div>
           </div>
 
@@ -73,7 +72,7 @@ export default function Level3() {
         <div className="w-screen flex">
           <div className="flex w-1/2 flex-col border-2 border-black m-4 px-4">
             <div className="flex flex-col py-2 h-full">
-              <NewTable refetch={refetch} />
+              <NewTable />
             </div>
           </div>
           <div className="w-1/2 invisible m-4 border-2 border-black"></div>
