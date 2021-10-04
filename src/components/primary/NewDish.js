@@ -50,8 +50,10 @@ export default function NewDish() {
     axios.get(api + "/herbsandspices/read"),
     axios.get(api + "/sauces/read"),
   ];
-  useEffect(() => {
-    Promise.all(promises)
+
+  const fetchAllData = () => {
+    console.log("appelé");
+    return Promise.all(promises)
       .then(
         ([
           { data: orders },
@@ -76,6 +78,9 @@ export default function NewDish() {
       .catch((err) => {
         console.log(err);
       });
+  };
+  useEffect(() => {
+    fetchAllData();
   }, []);
 
   const selectOrder = () => {
@@ -149,7 +154,7 @@ export default function NewDish() {
           <SelectElement
             // id="main"
             initValue={t("choose")}
-            options={[t("choose"), ...orders]}
+            options={!loading && [t("choose"), ...orders]}
             complex={true}
             onChangeSelect={(opt) => {
               setName(opt._id);
