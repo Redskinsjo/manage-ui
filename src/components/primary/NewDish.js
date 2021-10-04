@@ -60,6 +60,11 @@ export default function NewDish() {
           { data: herbsAndSpices },
           { data: sauces },
         ]) => {
+          console.log("useeffect orders", orders);
+          console.log("useeffect mains", mains);
+          console.log("useeffect sides", sides);
+          console.log("useeffect herbs", herbsAndSpices);
+          console.log("useeffect sauces", sauces);
           setOrders(orders);
           setMains(mains);
           setSides(sides);
