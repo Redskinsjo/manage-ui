@@ -125,7 +125,10 @@ export default function NewDish() {
       refetchQueries: ["fetchOrdersByTable"],
     });
   };
-  console.log(orders);
+  if (!loading) {
+    console.log("!loading", orders);
+  }
+  console.log("open", orders);
   return (
     <div className="border-2 border-gray-200 px-4 py-2">
       <form
