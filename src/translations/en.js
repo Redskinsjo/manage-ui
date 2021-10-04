@@ -24,6 +24,9 @@ const translationsEn = {
   billTable: "Bill",
   deleteTable: "Delete",
   //
+  // message when deleting table
+  msgDeleted: "table was deleted",
+  //
   // tableDetails
   tableNumber: "Table",
   Capacity: "Capacity",

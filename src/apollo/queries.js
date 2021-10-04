@@ -68,12 +68,18 @@ export const CREATE_TABLE = gql`
 `;
 
 // continuer ici
-// const FETCH_ORDERS_BY_TABLE = gql`
-//   query($tableId: ID) {
+// export const FETCH_ORDERS_BY_TABLE = gql`
+//   query fetchOrdersByTable($tableId: ID) {
 //     ordersByTable(tableId: $tableId) {
 
 //     }
 //   }
-// `
+// `;
 
-// export const CREATE_DISH = gql``;
+export const CREATE_DISH = gql`
+  mutation createOrder($data: OrderInput) {
+    createOrder(data: $data) {
+      _id
+    }
+  }
+`;

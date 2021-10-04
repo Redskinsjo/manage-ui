@@ -24,6 +24,9 @@ const translationsFr = {
   billTable: "Payer",
   deleteTable: "Supprimer",
   //
+  // message when deleting table
+  msgDeleted: "table a bien été supprimée",
+  //
   // tableDetails
   tableNumber: "Table",
   Capacity: "Capacité",

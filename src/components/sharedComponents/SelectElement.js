@@ -10,12 +10,15 @@ export default function SelectElement({
   onChangeSelect = null,
   classnames = null,
   elem = null,
+  reset,
 }) {
   const [state, setState] = useState({ open: false });
   const [value, setValue] = useState(initValue);
   const { ui } = useContext(GlobalState);
   const { selectElem } = ui;
   const { displaySelectElem } = useContext(GlobalDispatch);
+
+  console.log("value", value);
 
   const testStructure = (arg) => {
     if (typeof arg === "string") {
@@ -39,7 +42,8 @@ export default function SelectElement({
 
   useEffect(() => {
     setValue(initValue);
-  }, [initValue]);
+  }, [initValue, reset]);
+
   return (
     <div
       className={

@@ -4,9 +4,12 @@ import Dish from "../secondary/Dish";
 import AddElement from "../sharedComponents/AddElement";
 import { useTranslation } from "react-i18next";
 import { GlobalState } from "../../redux/GlobalProvider";
+import { useQuery } from "@apollo/client";
+import { FETCH_ORDERS_BY_TABLE } from "../../apollo/queries";
 
 export default function TableDetails({ numero }) {
   const [tableData, setTableData] = useState();
+  // const { data, refetch } = useQuery(FETCH_ORDERS_BY_TABLE);
   const { t } = useTranslation();
   const {
     data: { tables },

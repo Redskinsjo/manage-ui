@@ -8,7 +8,6 @@ import SelectElement from "../sharedComponents/SelectElement";
 
 export default function NewTable() {
   const [tableNumber, setTableNumber] = useState("");
-  const [location, setLocation] = useState("");
   const [guest1, setGuest1] = useState("");
   const [guest2, setGuest2] = useState("");
   const [guest3, setGuest3] = useState("");
@@ -16,6 +15,7 @@ export default function NewTable() {
   const [guest5, setGuest5] = useState("");
   const [guest6, setGuest6] = useState("");
   const guests = [guest1, guest2, guest3, guest4, guest5, guest6];
+  const [reset, setReset] = useState(false);
 
   const {
     data: { tables },
@@ -25,7 +25,12 @@ export default function NewTable() {
   let selectedTable;
   let guestsOnTable = guests.filter((guest) => guest.length > 0);
 
-  const [createTable, { data }] = useMutation(CREATE_TABLE);
+  const [createTable, { data }] = useMutation(CREATE_TABLE, {
+    onCompleted: () => {
+      setReset(!reset);
+      setTableNumber("");
+    },
+  });
   const { t } = useTranslation();
 
   let profiles = [guest1, guest2, guest3, guest4, guest5, guest6];
@@ -37,7 +42,7 @@ export default function NewTable() {
       return guest;
     }
   });
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (tableNumber === "Choisir") {
       throw new Error("You didn't choose a table number. Try to handle this.");
@@ -55,7 +60,6 @@ export default function NewTable() {
         },
       },
       refetchQueries: ["fetchTables"],
-      onCompleted: setTableNumber("Choisir"),
     });
   };
 
@@ -103,7 +107,7 @@ export default function NewTable() {
   }
   return (
     <div className="flex flex-col border-2 border-gray-200 px-4 py-2">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <div className="flex justify-between item-center">
           <div className="flex items-start">
             <label htmlFor="tableNumber" className="h-8 flex items-center">
@@ -111,17 +115,16 @@ export default function NewTable() {
             </label>
           </div>
           <SelectElement
-            id="tableNumber"
             elem="table"
             initValue={t("choose")}
             options={!loading && [t("choose"), ...tablesAvailable]}
             onChangeSelect={(opt) => {
               setTableNumber(opt.numero);
             }}
+            reset={reset}
           />
         </div>
-
-        {tableNumber && tableNumber !== t("choose") && (
+        {selectedTable && (
           <div className="flex justify-between item-center">
             <label htmlFor="location" className="flex items-center">
               {t("in_out")}
@@ -137,13 +140,13 @@ export default function NewTable() {
             </div>
           </div>
         )}
-        {tableNumber && tableNumber !== t("choose") && (
+        {selectedTable && (
           <div className="flex justify-between item-center">
             <label htmlFor="capactiy" className="flex items-center">
               {t("Capacity")}
             </label>
             <div className="aligned-details-table">
-              <div>{selectedTable && selectedTable.seats}</div>
+              <div>{selectedTable.seats}</div>
             </div>
           </div>
         )}
@@ -156,7 +159,7 @@ export default function NewTable() {
                   htmlFor={`guest${index + 1}`}
                   className="flex items-center"
                 >
-                  {t("guest")} n°{index + 1}
+                  {t("guestName")} n°{index + 1}
                 </label>
                 <input
                   id={`guest${index + 1}`}

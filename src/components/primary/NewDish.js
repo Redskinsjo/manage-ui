@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import SelectElement from "../sharedComponents/SelectElement";
 import "antd/dist/antd.css";
 import { TreeSelect } from "antd";
 import { useTranslation } from "react-i18next";
+import { CREATE_DISH } from "../../apollo/queries";
+import { useMutation } from "@apollo/client";
+import { GlobalState } from "../../redux/GlobalProvider";
 const { SHOW_PARENT, SHOW_ALL } = TreeSelect;
 
 export default function NewDish() {
@@ -22,6 +25,17 @@ export default function NewDish() {
   const [salt, setSalt] = useState();
   const [pepper, setPepper] = useState();
   const [cooking, setCooking] = useState();
+  const [createOrder] = useMutation(CREATE_DISH, {
+    onCompleted: (data) => {
+      console.log(data);
+    },
+  });
+  const { ui } = useContext(GlobalState);
+  const { tableDetails } = ui;
+  console.log("selectedOrder", selectedOrder);
+  console.log("main", main);
+  console.log("salt", salt);
+  console.log("pepper", pepper);
 
   const { t } = useTranslation();
 
@@ -94,6 +108,22 @@ export default function NewDish() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    createOrder({
+      variables: {
+        data: {
+          table: tableDetails,
+          name,
+          main,
+          side,
+          salt,
+          pepper,
+          herbsAndSpices,
+          sauce,
+          cooking,
+        },
+      },
+      refetchQueries: ["fetchOrdersByTable"],
+    });
   };
 
   return (

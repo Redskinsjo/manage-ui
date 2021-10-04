@@ -9,7 +9,11 @@ function TableUnit({ id, numero, seats, indoor, outdoor }) {
   const { ui } = useContext(GlobalState);
   const { tableDetails, tableMenu } = ui;
   const { displayTableDetails, displayTableMenu } = useContext(GlobalDispatch);
-  const [deleteTable, { data }] = useMutation(DELETE_TABLE);
+  const [deleteTable, { data }] = useMutation(DELETE_TABLE, {
+    onCompleted: () => {
+      displayTableMenu(false);
+    },
+  });
   const { t } = useTranslation();
 
   let selectedTable;
@@ -42,46 +46,41 @@ function TableUnit({ id, numero, seats, indoor, outdoor }) {
           </span>
         </div>
       </div>
-      <div
-        className={`relative ${
-          tableMenu && tableMenu.numero === numero && "w-1/6"
-        }`}
-      >
+      <div className={`relative ${tableMenu === numero && "w-1/6"}`}>
         <div className="flex flex-grow">
           <FontAwesomeIcon
             icon={["fas", "ellipsis-h"]}
             className="text-4xl cursor-pointer"
-            onClick={() => {
-              displayTableMenu(tableMenu === numero ? false : numero);
+            onClick={(e) => {
+              e.stopPropagation();
+              displayTableMenu(numero);
             }}
           ></FontAwesomeIcon>
           {tableMenu === numero && (
             <div
-              className="absolute top-8 -left-4 bg-white h-40 z-10 border-2"
+              className="absolute top-8 -left-4 bg-white z-10 border-2"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex flex-col">
-                <div className="hover:bg-yellow-200 px-4 cursor-not-allowed">
+              <div className="flex flex-col h-full">
+                <div className="hover:bg-yellow-200 px-2 cursor-not-allowed">
                   <div className="flex items-center justify-between my-1">
                     <FontAwesomeIcon icon={["fab", "btc"]}></FontAwesomeIcon>
                     <span>{t("billTable")}</span>
                   </div>
                 </div>
                 <div
-                  className="hover:bg-yellow-200 px-4 cursor-pointer"
+                  className="hover:bg-yellow-200 px-2 cursor-pointer"
                   onClick={() => {
                     deleteTable({
                       variables: { id: selectedTable.id },
                       refetchQueries: ["fetchTables"],
-                      onCompleted: () => {
-                        displayTableMenu(false);
-                      },
                     });
                   }}
                 >
                   <div className="flex items-center justify-between my-1">
                     <FontAwesomeIcon
                       icon={["fas", "trash-alt"]}
+                      style={{ marginRight: "1rem" }}
                     ></FontAwesomeIcon>
                     <span>{t("deleteTable")}</span>
                   </div>
