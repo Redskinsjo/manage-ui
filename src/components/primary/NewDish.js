@@ -141,7 +141,8 @@ export default function NewDish() {
           <SelectElement
             // id="main"
             initValue={t("choose")}
-            options={!loading && [t("choose"), ...orders]}
+            // options={!loading && [t("choose"), ...orders]}
+            options={["", "", ""]}
             complex={true}
             onChangeSelect={(opt) => {
               setName(opt._id);
