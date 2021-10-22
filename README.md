@@ -1,6 +1,6 @@
 ## Visit
 
-[Projet en production](https://project-boilerplate.netlify.app/)
+[Projet en production](https://manage-mvp.netlify.app/)
 
 ## Stack
 
