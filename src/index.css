@@ -4,7 +4,7 @@
 
 @layer components {
   .primary-layout {
-    @apply px-20 py-4 h-full flex flex-col;
+    @apply px-20 py-4 h-full flex flex-col bg-white;
   }
   .aligned-details-table {
     @apply w-36 h-10 pl-2 flex items-center justify-end px-2;
@@ -12,4 +12,30 @@
   .aligned-details-dish {
     @apply flex justify-between items-center mb-1 h-8;
   }
+  .dish-ingredient-container {
+    @apply flex flex-col items-center px-4;
+  }
+  .dish-ingredient-title {
+    @apply text-xxxs border-gray-200 border-b-width-0_5 text-gray-400;
+  }
+  .dish-ingredient-data {
+    @apply block text-center border-r-2 border-gray-300 px-4 mb-2 w-full box-content;
+  }
+  .dish-last-ingredient-data {
+    @apply block text-center px-4 mb-2 w-full box-content;
+  }
+  .middle-container-new-unit {
+    @apply flex w-1/2 flex-col border-2 border-black m-4 px-4 bg-white;
+  }
+  .lower-container-new-unit {
+    @apply flex flex-col py-2 h-full;
+  }
+}
+
+body {
+  background-color: black !important;
+}
+
+#root {
+  background-color: black;
 }

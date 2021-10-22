@@ -7,7 +7,7 @@ export default function Tables() {
     data: { tables },
   } = useContext(GlobalState);
   return (
-    <div className="flex flex-col items-center overflow-y-scroll overflow-hidden bg-gray-100 flex-grow">
+    <div className="flex flex-col items-center overflow-y-scroll overflow-hidden bg-gray-100 flex-grow rounded-xl">
       {tables &&
         tables.map((table) => {
           return (

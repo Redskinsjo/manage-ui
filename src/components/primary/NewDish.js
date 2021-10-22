@@ -15,6 +15,7 @@ export default function NewDish() {
   const [sides, setSides] = useState();
   const [herbsAndSpices, setHerbsAndSpices] = useState();
   const [sauces, setSauces] = useState();
+
   const [loading, setLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState();
   const [main, setMain] = useState();
@@ -25,10 +26,12 @@ export default function NewDish() {
   const [salt, setSalt] = useState();
   const [pepper, setPepper] = useState();
   const [cooking, setCooking] = useState();
-  const [value, setValue] = useState([]);
+  const [herbsName, setHerbsName] = useState([]);
+  const [reset, setReset] = useState(0);
   const [createOrder] = useMutation(CREATE_DISH, {
     onCompleted: (data) => {
-      console.log(data);
+      setSelectedOrder({ name: t("choose") });
+      setReset(reset + 1);
     },
   });
   const { ui } = useContext(GlobalState);
@@ -98,15 +101,16 @@ export default function NewDish() {
   };
 
   useEffect(() => {
-    if (isOrderSelected) setValue(herbs.map((h) => h.name));
-  }, [isOrderSelected]);
+    if (isOrderSelected && selectedOrder?.name !== t("choose")) {
+      setHerbsName(herbs.map((h) => h.name));
+    }
+  }, [selectedOrder?.name]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const herbsIds = value.map((herb) => {
+    const herbsIds = herbsName.map((herb) => {
       const result = herbsAndSpices.find((h) => h.name === herb);
       if (result) return result._id;
-      else throw new Error("herb was not found");
     });
     createOrder({
       variables: {
@@ -144,9 +148,9 @@ export default function NewDish() {
             complex={true}
             onChangeSelect={(opt) => {
               selectOrder(opt);
-              console.log(opt);
             }}
             elem="dish"
+            reset={reset}
           />
         </div>
         {selectedOrder && selectedOrder.name !== t("choose") && (
@@ -159,6 +163,9 @@ export default function NewDish() {
                 initValue={main || t("none")}
                 options={!loading && mains}
                 complex={true}
+                onChangeSelect={(opt) => {
+                  setMain(opt);
+                }}
               />
             </div>
             <div className="aligned-details-dish">
@@ -169,12 +176,15 @@ export default function NewDish() {
                 initValue={side || t("none")}
                 options={!loading && sides}
                 complex={true}
+                onChangeSelect={(opt) => {
+                  setSide(opt);
+                }}
               />
             </div>
             <div className="flex justify-between items-center mb-1 min-h-8">
               <span className="flex-auto">{t("herbsAndSpices")}</span>
               <TreeSelect
-                value={value}
+                value={herbsName}
                 treeData={
                   !loading &&
                   herbsAndSpices.map((herb) => ({
@@ -184,14 +194,13 @@ export default function NewDish() {
                 }
                 style={{ flex: 1 }}
                 treeCheckable={true}
-                onSelect={(value, node, extra) => {
-                  console.log(value, node, extra);
-                }}
+                // onSelect={(value, node, extra) => {
+                //   console.log(value, node, extra);
+                // }}
                 onChange={(value, node, extra) => {
                   console.log(value, node, extra);
-                  setValue(value);
+                  setHerbsName(value);
                 }}
-                // defaultValue={["OK", "node2"]}
               />
             </div>
             <div className="aligned-details-dish">
@@ -202,6 +211,9 @@ export default function NewDish() {
                 initValue={sauce || t("none")}
                 options={!loading && sauces}
                 complex={true}
+                onChangeSelect={(opt) => {
+                  setSauce(opt);
+                }}
               />
             </div>
             <div className="aligned-details-dish">
@@ -211,6 +223,9 @@ export default function NewDish() {
                 id="salt"
                 initValue={salt || t("none")}
                 options={[t("none"), "S", "L"]}
+                onChangeSelect={(opt) => {
+                  setSalt(opt);
+                }}
               />
             </div>
             <div className="aligned-details-dish">
@@ -220,6 +235,9 @@ export default function NewDish() {
                 id="pepper"
                 initValue={pepper || t("none")}
                 options={[t("none"), "S", "L"]}
+                onChangeSelect={(opt) => {
+                  setPepper(opt);
+                }}
               />
             </div>
             <div className="aligned-details-dish">
@@ -229,12 +247,14 @@ export default function NewDish() {
                 id="cooking"
                 initValue={cooking || t("none")}
                 options={[t("rare"), t("medium_rare"), t("well_done")]}
+                onChangeSelect={(opt) => {
+                  setCooking(opt);
+                }}
               />
             </div>
           </div>
         )}
         <div className="flex justify-end w-full">
-          {/* <label></label> */}
           <input
             className="px-4 py-2 mt-4 cursor-pointer hover:bg-yellow-300"
             type="submit"

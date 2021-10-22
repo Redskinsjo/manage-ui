@@ -70,13 +70,13 @@ export default function SelectElement({
                         setState({ open: false });
                       }
                 }
-                onChange={
-                  onChangeSelect &&
-                  function (e) {
-                    console.log(e);
-                    onChangeSelect("opt");
-                  }
-                }
+                // onChange={
+                //   onChangeSelect &&
+                //   function (e) {
+                //     console.log(e);
+                //     onChangeSelect("opt");
+                //   }
+                // }
                 key={opt._id || index}
               >
                 <div className="flex justify-center items-center w-8">

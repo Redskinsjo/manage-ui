@@ -8,7 +8,7 @@ export default function AddElement({ unit }) {
   const { displayAddTable, displayAddDish } = useContext(GlobalDispatch);
   return (
     <div
-      className="max-w-full h-8 mb-4 mt-8 py-4 cursor-pointer border-2 border-gray-500 hover:bg-yellow-300 hover:border-black flex justify-center items-center"
+      className="max-w-full h-8 mb-4 mt-8 py-4 cursor-pointer border-2 border-gray-500 hover:bg-yellow-300 hover:border-black flex justify-center items-center bg-white rounded-xl"
       onClick={(e) => {
         e.stopPropagation();
         if (unit === "table") displayAddTable(!addTable);

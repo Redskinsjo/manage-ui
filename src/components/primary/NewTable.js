@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { GlobalState } from "../../redux/GlobalProvider";
 import axios from "axios";
-import { CREATE_TABLE } from "../../apollo/queries";
-import { useMutation } from "@apollo/client";
+import { CREATE_TABLE, SEARCH_GUEST } from "../../apollo/queries";
+import { useMutation, useQuery } from "@apollo/client";
 import { useTranslation } from "react-i18next";
 import SelectElement from "../sharedComponents/SelectElement";
 import { message } from "antd";
+import { BsFillPersonPlusFill } from "react-icons/bs";
+import "antd/dist/antd.css";
+import { AutoComplete } from "antd";
 
 export default function NewTable() {
   const [tableNumber, setTableNumber] = useState("");
@@ -15,8 +18,12 @@ export default function NewTable() {
   const [guest4, setGuest4] = useState("");
   const [guest5, setGuest5] = useState("");
   const [guest6, setGuest6] = useState("");
+  const [guestOptions, setGuestOptions] = useState([]);
+  const [inputAutocomplete, setInputAutocomplete] = useState("");
   const guests = [guest1, guest2, guest3, guest4, guest5, guest6];
   const [reset, setReset] = useState(false);
+
+  const { data: result, refetch: searchGuest } = useQuery(SEARCH_GUEST);
 
   const {
     data: { tables },
@@ -95,6 +102,20 @@ export default function NewTable() {
     fetchTablesAvailable();
   }, [tables]);
 
+  useEffect(() => {
+    searchGuest({ input: inputAutocomplete });
+  }, [inputAutocomplete]);
+
+  useEffect(() => {
+    if (result?.searchGuest?.length > 0) {
+      const options = result.searchGuest.map((opt) => ({
+        label: opt.fullname,
+        value: opt.fullname,
+      }));
+      setGuestOptions(options);
+    }
+  }, [result]);
+
   if (tableNumber) {
     selectedTable = tablesAvailable.find(
       (table) => table.numero === Number(tableNumber)
@@ -108,7 +129,7 @@ export default function NewTable() {
     }
   }
   return (
-    <div className="flex flex-col border-2 border-gray-200 px-4 py-2">
+    <div className="flex flex-col border-2 border-gray-200 px-4 py-2 bg-white">
       <form onSubmit={onSubmit}>
         <div className="flex justify-between item-center">
           <div className="flex items-start">
@@ -157,13 +178,29 @@ export default function NewTable() {
           seats.map((guest, index) => {
             return (
               <div key={index} className="flex justify-between item-center">
-                <label
-                  htmlFor={`guest${index + 1}`}
-                  className="flex items-center"
-                >
-                  {t("guestName")} n°{index + 1}
-                </label>
-                <input
+                <div className="flex items-center">
+                  <label
+                    htmlFor={`guest${index + 1}`}
+                    className="flex items-center"
+                  >
+                    {t("guestName")} n°{index + 1}
+                  </label>
+                  <BsFillPersonPlusFill
+                    style={{ margin: "0px 1rem" }}
+                    fontSize="18px"
+                  />
+                </div>
+                <AutoComplete
+                  style={{ width: 200 }}
+                  options={guestOptions}
+                  onChange={(value) => setInputAutocomplete(value)}
+                  onSelect={() => {
+                    setGuestOptions([]);
+                    setInputAutocomplete("");
+                  }}
+                />
+
+                {/* <input
                   id={`guest${index + 1}`}
                   type="text"
                   className="w-36 h-10"
@@ -176,7 +213,7 @@ export default function NewTable() {
                     } else console.log(e.target.value);
                     // notif erreur
                   }}
-                />
+                /> */}
               </div>
             );
           })}

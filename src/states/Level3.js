@@ -25,7 +25,7 @@ export default function Level3() {
         }
       }}
     >
-      <div className="flex w-full justify-end px-4">
+      <div className="flex w-full justify-end px-4 border-b-2 border-white">
         <Language />
       </div>
 
@@ -56,22 +56,22 @@ export default function Level3() {
       {/* level 4, then 3.1, then 3.2, in order */}
       {addTable && addDish ? (
         <div className="w-screen flex">
-          <div className="flex w-1/2 flex-col border-2 border-black m-4 px-4">
-            <div className="flex flex-col py-2 h-full">
+          <div className="middle-container-new-unit">
+            <div className="lower-container-new-unit">
               <NewTable />
             </div>
           </div>
 
-          <div className="flex w-1/2 flex-col border-2 border-black m-4 px-4">
-            <div className="flex flex-col py-2 h-full">
+          <div className="middle-container-new-unit">
+            <div className="lower-container-new-unit">
               <NewDish />
             </div>
           </div>
         </div>
       ) : addTable ? (
         <div className="w-screen flex">
-          <div className="flex w-1/2 flex-col border-2 border-black m-4 px-4">
-            <div className="flex flex-col py-2 h-full">
+          <div className="middle-container-new-unit">
+            <div className="lower-container-new-unit">
               <NewTable />
             </div>
           </div>
@@ -80,8 +80,8 @@ export default function Level3() {
       ) : addDish ? (
         <div className="w-screen flex">
           <div className="w-1/2 invisible m-4 border-2 border-black"></div>
-          <div className="flex w-1/2 flex-col border-2 border-black m-4 px-4">
-            <div className="flex flex-col py-2 h-full">
+          <div className="middle-container-new-unit">
+            <div className="lower-container-new-unit">
               <NewDish />
             </div>
           </div>

@@ -16,7 +16,7 @@ const GlobalProvider = ({
   displaySelectElem,
   setTables,
 }) => {
-  const { loading, error, data, refetch } = useQuery(FETCH_TABLES);
+  const { data, refetch } = useQuery(FETCH_TABLES);
 
   useEffect(() => {
     setTables(data?.tables || storedData?.tables);
@@ -29,7 +29,6 @@ const GlobalProvider = ({
     ui,
     data: { ...storedData, refetch },
   };
-  console.log(state.data);
   return (
     <GlobalState.Provider value={state}>
       <GlobalDispatch.Provider

@@ -9,8 +9,8 @@ const translationsEn = {
   pepper: "Pepper",
   cooking: "Cooking",
   rare: "rare",
-  medium_rare: "medium rare",
-  well_done: "well done",
+  medium_rare: "medium-rare",
+  well_done: "well-done",
   none: "none",
   //
   // tableUnit

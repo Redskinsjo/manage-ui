@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import data from "../../data.json";
+import React, { useEffect, useContext, useState } from "react";
+// import data from "../../data.json";
 import Dish from "../secondary/Dish";
 import AddElement from "../sharedComponents/AddElement";
 import { useTranslation } from "react-i18next";
@@ -8,66 +8,58 @@ import { useQuery } from "@apollo/client";
 import { FETCH_ORDERS_BY_TABLE } from "../../apollo/queries";
 
 export default function TableDetails({ numero }) {
-  const [tableData, setTableData] = useState();
-  // const { data, refetch } = useQuery(FETCH_ORDERS_BY_TABLE);
+  const { data } = useContext(GlobalState);
+  const { tables } = data;
+  const { data: result } = useQuery(FETCH_ORDERS_BY_TABLE, {
+    variables: { tableId: numero },
+  });
   const { t } = useTranslation();
-  const {
-    data: { tables },
-  } = useContext(GlobalState);
+  const [table, setTable] = useState();
 
-  const getTableData = async () => {
-    const table = data.find((table) => table.numero === numero);
-    // const table = tables.find((table) => table.numero === numero);
-    setTableData(table);
-  };
   useEffect(() => {
-    getTableData();
-  }, [numero]);
+    if (tables) setTable(tables.find((table) => table.numero === numero));
+  }, [numero, tables]);
 
   return (
-    <div className="flex flex-col px-4 py-2 h-full">
-      <div className="flex w-full justify-between">
-        <div className="flex flex-1 text-red-500">
-          {tableData && tableData.indoor
-            ? t("indoor")
-            : tableData?.outdoor
-            ? t("outdoor")
-            : ""}
+    <>
+      {table?.numero && (
+        <div className="flex flex-col px-4 py-2 h-full bg-white">
+          <div className="flex w-full justify-between">
+            <div className="flex flex-1 text-red-500">
+              {table.indoor ? t("indoor") : table.outdoor ? t("outdoor") : ""}
+            </div>
+            <div className="flex flex-1 justify-center">
+              {t("tableNumber")} {table.numero}
+            </div>
+            <div className="flex flex-1 justify-end">
+              {t("Capacity")}: {table.seats} {t("guests")}
+            </div>
+          </div>
+          <div className="flex justify-center items-center">
+            {table.guests.count + " "}
+            {table.guests.count > 1 ? t("guests") : t("guest")}
+          </div>
+          <div className="flex-grow overflow-y-scroll overflow-hidden">
+            {result &&
+              result.ordersByTable.map((ord) => {
+                return (
+                  <Dish
+                    key={ord._id}
+                    name={ord.name}
+                    main={ord.main}
+                    side={ord.side}
+                    salt={ord.salt}
+                    pepper={ord.pepper}
+                    herbsAndSpices={ord.herbsAndSpices}
+                    sauce={ord.sauce}
+                    cooking={ord.cooking}
+                  ></Dish>
+                );
+              })}
+          </div>
+          <AddElement unit={"dish"} />
         </div>
-        <div className="flex flex-1 justify-center">
-          {t("tableNumber")} {numero}
-        </div>
-        <div className="flex flex-1 justify-end">
-          {t("Capacity")}: {tableData && tableData.seats} {t("guests")}
-        </div>
-      </div>
-      <div className="flex justify-center items-center">
-        {tableData && tableData.guests?.count + " "}
-        {(tableData && !tableData.guests.count) ||
-        (tableData && tableData.guests.count === 1)
-          ? t("guest")
-          : t("guests")}
-      </div>
-      <div className="flex-grow overflow-y-scroll overflow-hidden">
-        {tableData &&
-          tableData.orders.map((item) => (
-            <Dish
-              key={item.id}
-              name={item.name}
-              main={item.main}
-              side={item.side}
-              salt={item.salt}
-              pepper={item.pepper}
-              herbsAndSpices={item.herbsAndSpices}
-              sauce={item.sauce}
-              cooking={item.cooking}
-            ></Dish>
-          ))}
-      </div>
-      <AddElement unit={"dish"} />
-      {/* <div className="border-2 border-gray-500 h-8 my-4 hover:bg-gray-300 hover:border-black cursor-pointer flex justify-center items-center">
-        <FontAwesomeIcon icon={["fas", "plus"]}></FontAwesomeIcon>
-      </div> */}
-    </div>
+      )}
+    </>
   );
 }

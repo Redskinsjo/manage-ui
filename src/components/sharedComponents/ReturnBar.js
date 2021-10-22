@@ -8,7 +8,9 @@ import React, { ReactElement } from "react";
 const ReturnBar = ({ hover, setHover, dispatch }) => {
   return (
     <div
-      className={`w-4 ${hover && "bg-gray-200 cursor-pointer"}`}
+      className={`w-4 bg-white border-l-2 border-r-2 border-black ${
+        hover && "bg-yellow-300 cursor-pointer"
+      }`}
       onClick={() => {
         dispatch(false);
       }}

@@ -23,12 +23,12 @@ function Level1() {
       <div className="flex w-full justify-end px-4">
         <Language />
       </div>
-      <div className="primary-layout justify-center w-screen border-2 border-black h-4/6">
+      <div className="primary-layout justify-center w-screen border-2 border-black h-4/6 bg-gray-300">
         <Tables />
         <AddElement unit={"table"} />
       </div>
       {addTable && (
-        <div className="primary-layout border-2 border-black">
+        <div className="primary-layout border-2 border-black bg-black">
           <NewTable />
         </div>
       )}

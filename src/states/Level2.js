@@ -5,6 +5,7 @@ import TableDetails from "../components/primary/TableDetails";
 import { GlobalState, GlobalDispatch } from "../redux/GlobalProvider";
 import Language from "../components/sharedComponents/Language";
 import ReturnBar from "../components/sharedComponents/ReturnBar";
+import { spring, Motion } from "react-motion";
 
 export default function Level2() {
   const [hover, setHover] = React.useState();
@@ -21,7 +22,7 @@ export default function Level2() {
         }
       }}
     >
-      <div className="flex w-full justify-end px-4">
+      <div className="flex w-full justify-end px-4 border-b-2 border-white">
         <Language />
       </div>
 

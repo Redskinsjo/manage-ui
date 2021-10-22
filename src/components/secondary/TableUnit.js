@@ -5,6 +5,8 @@ import { useMutation } from "@apollo/client";
 import { DELETE_TABLE } from "../../apollo/queries";
 import { useTranslation } from "react-i18next";
 import { message } from "antd";
+import { IoRestaurant } from "react-icons/io5";
+import { spring, Motion, StaggeredMotion } from "react-motion";
 
 function TableUnit({ id, numero, seats, indoor, outdoor }) {
   const { ui } = useContext(GlobalState);
@@ -26,11 +28,11 @@ function TableUnit({ id, numero, seats, indoor, outdoor }) {
   return (
     <div
       className={`w-full flex ${
-        tableMenu === numero ? "justify-start" : "justify-center"
+        tableMenu === numero ? `justify-start animate-pulse` : "justify-center"
       } items-center ring-1 ring-gray-300`}
     >
       <div
-        className={`flex items-center w-5/6 min-h-16 mx-4 my-8 hover:bg-yellow-300 cursor-pointer border-2 border-black ${
+        className={`bg-white rounded-xl flex items-center w-5/6 min-h-16 mx-4 my-8 hover:bg-yellow-300 cursor-pointer border-2 border-black ${
           tableDetails === numero && "bg-yellow-200"
         }`}
         onClick={(e) => {
@@ -39,7 +41,10 @@ function TableUnit({ id, numero, seats, indoor, outdoor }) {
         }}
       >
         <div className="w-full h-full flex justify-between px-4 items-center">
-          <h2 className="">{numero}</h2>
+          <div className="flex items-center">
+            <IoRestaurant fontSize="18px" />
+            <h2 className="my-0 mx-2">{numero}</h2>
+          </div>
           <span className=" whitespace-nowrap">{`${seats} ${
             seats === 1 ? t("guest") : t("guests")
           }`}</span>

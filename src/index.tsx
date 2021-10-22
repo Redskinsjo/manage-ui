@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import GraphQLProvider from "./apollo/index";
@@ -7,11 +7,9 @@ import "./translations/i18n";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Suspense fallback={<>Loading...</>}>
-      <GraphQLProvider>
-        <ReduxProvider />
-      </GraphQLProvider>
-    </Suspense>
+    <GraphQLProvider>
+      <ReduxProvider />
+    </GraphQLProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
