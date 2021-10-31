@@ -1,6 +1,3 @@
-// ## Visit
-
-// [Projet en production](https://manage-mvp.netlify.app/)
 
 ## Stack
 
