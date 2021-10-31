@@ -6,4 +6,4 @@
 - Typescript
 - Antdesign
 - GraphQL
-- TailwinCSS
+- TailwindCSS
